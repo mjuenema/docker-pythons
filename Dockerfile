@@ -32,7 +32,10 @@ RUN yum -y install sqlite-devel \
                    tar \
                    wget \
                    git \
-                   subversion
+                   gitflow \
+                   subversion \
+                   mercurial \
+                   vim-enhanced 
 
 
 # Download get-pip.py
@@ -51,7 +54,9 @@ RUN wget https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python2.6 get-pip.py && \
-    rm -rfv Python*
+    rm -rfv Python* \
+    rm -fv `find /usr/local/lib -name "*.pyc"` && \
+    rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
 # Python 2.7.10
@@ -65,7 +70,25 @@ RUN wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python2.7 get-pip.py && \
-    rm -rfv Python-*
+    rm -rfv Python-* \
+    rm -fv `find /usr/local/lib -name "*.pyc"` && \
+    rm -fv `find /usr/local/lib -name "*.pyo"`
+
+
+# Python 3.2.6
+#
+RUN wget https://www.python.org/ftp/python/3.2.6/Python-3.2.6.tgz && \
+    tar xvfz Python-3.2.6.tgz && \
+    cd Python-3.2.6 && \
+    ./configure && \
+    make clean && \
+    make && \
+    make altinstall && \
+    cd - && \
+    /usr/local/bin/python3.2 get-pip.py && \
+    rm -rfv Python-* \
+    rm -fv `find /usr/local/lib -name "*.pyc"` && \
+    rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
 # Python 3.3.6
@@ -79,7 +102,9 @@ RUN wget https://www.python.org/ftp/python/3.3.6/Python-3.3.6.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.3 get-pip.py && \
-    rm -rfv Python-*
+    rm -rfv Python-* \
+    rm -fv `find /usr/local/lib -name "*.pyc"` && \
+    rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
 # Python 3.4.3
@@ -93,7 +118,9 @@ RUN wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.4 get-pip.py && \
-    rm -rfv Python-*
+    rm -rfv Python-* \
+    rm -fv `find /usr/local/lib -name "*.pyc"` && \
+    rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
 # Python 3.5.0
@@ -107,10 +134,18 @@ RUN wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.5 get-pip.py && \
-    rm -rfv Python-*
+    rm -rfv Python-* \
+    rm -fv `find /usr/local/lib -name "*.pyc"` && \
+    rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
-USER developer
-ENV HOME /home/developer
-WORKDIR /home/developer
+# Pypy and Jython
+#
+RUN yum -y install pypy jython
+
+
+# Install tox
+#
+RUN /usr/local/bin/pip3.4 install tox coverage nose
+
 CMD /bin/bash

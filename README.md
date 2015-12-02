@@ -8,6 +8,8 @@ against the following versions of Python.
 * Python 3.3.6
 * Python 2.7.10
 * Python 2.6.9
+- Pypy 
+- Jython 
 
 There is similar Docker image but with Eclipse and PyDev included:
 https://github.com/mjuenema/docker-eclipse-pydev-pythons
