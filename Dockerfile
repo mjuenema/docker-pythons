@@ -144,7 +144,7 @@ RUN wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz && \
 RUN yum -y install pypy jython
 
 
-# Install tox
+# Install some Python development tools
 #
 RUN /usr/local/bin/pip3.4 install tox coverage nose
 
