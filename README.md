@@ -1,6 +1,6 @@
 # docker-pythons
 Docker image with multiple Python versions. This may
-be useful for testaing Python projects 
+be useful for testing Python projects 
 against the following versions of Python. 
 
 * Python 3.5.0
