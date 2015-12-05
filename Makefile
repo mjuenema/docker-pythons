@@ -6,4 +6,4 @@ image: Dockerfile
 
 clean:
 	# I always forget the syntax
-	docker rmi `docker images -q -f dangling=true`
+	[ "`docker images -q -f dangling=true`" != "" ] && docker rmi `docker images -q -f dangling=true`

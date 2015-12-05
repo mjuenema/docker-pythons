@@ -9,7 +9,8 @@ MAINTAINER Markus Juenemann <markus@juenemann.net>
 
 # Update
 #
-RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+RUN [ -f /etc/yum.repos.d/epel.repo ] || yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+RUN [ -f /etc/yum.repos.d/repoforge ] || yum -y install http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 RUN yum -y update
 
 
@@ -35,7 +36,8 @@ RUN yum -y install sqlite-devel \
                    gitflow \
                    subversion \
                    mercurial \
-                   vim-enhanced 
+                   vim-enhanced \
+                   rpm-build
 
 
 # Download get-pip.py
@@ -148,4 +150,7 @@ RUN yum -y install pypy jython
 #
 RUN /usr/local/bin/pip3.4 install tox coverage nose
 
+USER developer
+ENV HOME /home/developer
+WORKDIR /home/developer
 CMD /bin/bash
