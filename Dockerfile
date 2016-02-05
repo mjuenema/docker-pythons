@@ -6,11 +6,15 @@
 FROM centos:6
 MAINTAINER Markus Juenemann <markus@juenemann.net>
 
+# Yum proxy
+#
+RUN [ "$http_proxy" == "" ] || echo "proxy=$http_proxy" >> /etc/yum.conf
+RUN yum clean all
 
 # Update
 #
-RUN [ -f /etc/yum.repos.d/epel.repo ] || yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-RUN [ -f /etc/yum.repos.d/repoforge ] || yum -y install http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+RUN [ -f /etc/yum.repos.d/epel.repo ] || yum -y -v install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+RUN [ -f /etc/yum.repos.d/repoforge ] || yum -y -v install http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 RUN yum -y update
 
 
@@ -24,6 +28,7 @@ RUN yum -y install sqlite-devel \
                    readline-devel \
                    bzip2-devel \
                    libxslt-devel \
+                   python-devel \
                    libxml2-devel \
                    gcc \
                    make \
@@ -56,6 +61,7 @@ RUN wget https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python2.6 get-pip.py && \
+    pip2.6 install tox setuptools nose coverage && \
     rm -rfv Python* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -72,13 +78,14 @@ RUN wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python2.7 get-pip.py && \
+    pip2.7 install tox setuptools nose coverage && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
-# Python 3.2.6
-#
+## Python 3.2.6
+##
 RUN wget https://www.python.org/ftp/python/3.2.6/Python-3.2.6.tgz && \
     tar xvfz Python-3.2.6.tgz && \
     cd Python-3.2.6 && \
@@ -87,7 +94,8 @@ RUN wget https://www.python.org/ftp/python/3.2.6/Python-3.2.6.tgz && \
     make && \
     make altinstall && \
     cd - && \
-    /usr/local/bin/python3.2 get-pip.py && \
+    #/usr/local/bin/python3.2 get-pip.py && \
+    #pip3.2 install setuptools && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -104,6 +112,7 @@ RUN wget https://www.python.org/ftp/python/3.3.6/Python-3.3.6.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.3 get-pip.py && \
+    pip3.3 install tox setuptools nose coverage && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -120,6 +129,7 @@ RUN wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.4 get-pip.py && \
+    pip3.4 install tox setuptools nose coverage && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -136,6 +146,7 @@ RUN wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.5 get-pip.py && \
+    pip3.5 install tox setuptools nose coverage && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -146,9 +157,10 @@ RUN wget https://www.python.org/ftp/python/3.5.0/Python-3.5.0.tgz && \
 RUN yum -y install pypy jython
 
 
-# Install some Python development tools
+# Undo yum proxy
 #
-RUN /usr/local/bin/pip3.4 install tox coverage nose
+RUN [ "$http_proxy" == "" ] || sed --in-place 's/^proxy//g' /etc/yum.conf
+
 
 USER developer
 ENV HOME /home/developer

@@ -2,7 +2,7 @@
 all: image
 
 image: Dockerfile
-	docker build -t mjuenema/pythons .
+	docker build -t mjuenema/pythons --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) .
 
 clean:
 	# I always forget the syntax
