@@ -1,11 +1,12 @@
-# docker-eclipse-pydev-pythons
+# docker-pythons
 Docker image with multiple Python versions. This may
-be useful for testaing Python projects 
+be useful for testing Python projects 
 against the following versions of Python. 
 
 * Python 3.5.0
 * Python 3.4.3
 * Python 3.3.6
+* Python 3.2.6 (with limitations)
 * Python 2.7.10
 * Python 2.6.9
 - Pypy 
@@ -53,4 +54,4 @@ bash-4.1$ cd <mypythonproject>
 bash-4.1$ tox
 ```
 
-Markus Juenemann, 26-Nov-2015
+Markus Juenemann, 02-Dec-2015
