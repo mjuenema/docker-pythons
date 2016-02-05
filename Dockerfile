@@ -159,7 +159,7 @@ RUN yum -y install pypy jython
 
 # Undo yum proxy
 #
-RUN [ "$http_proxy" == "" ] || sed --in-place 's/^proxy//g' /etc/yum.conf
+RUN [ "$http_proxy" == "" ] || sed --in-place 's/^proxy=http.*$//g' /etc/yum.conf
 
 
 USER developer
