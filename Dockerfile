@@ -62,6 +62,7 @@ RUN wget https://www.python.org/ftp/python/2.6.9/Python-2.6.9.tgz && \
     cd - && \
     /usr/local/bin/python2.6 get-pip.py && \
     pip2.6 install tox setuptools nose coverage minimock instrumental && \
+    pip2.6 install --upgrade pip && \
     rm -rfv Python* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -79,6 +80,7 @@ RUN wget https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz && \
     cd - && \
     /usr/local/bin/python2.7 get-pip.py && \
     pip2.7 install tox setuptools nose coverage minimock instrumental && \
+    pip2.7 install --upgrade pip && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -113,6 +115,7 @@ RUN wget https://www.python.org/ftp/python/3.3.6/Python-3.3.6.tgz && \
     cd - && \
     /usr/local/bin/python3.3 get-pip.py && \
     pip3.3 install tox setuptools nose coverage minimock instrumental && \
+    pip3.3 install --upgrade pip && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -130,6 +133,7 @@ RUN wget https://www.python.org/ftp/python/3.4.4/Python-3.4.4.tgz && \
     cd - && \
     /usr/local/bin/python3.4 get-pip.py && \
     pip3.4 install tox setuptools nose coverage minimock instrumental && \
+    pip3.4 install --upgrade pip && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
@@ -147,6 +151,7 @@ RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz && \
     cd - && \
     /usr/local/bin/python3.5 get-pip.py && \
     pip3.5 install tox setuptools nose coverage minimock instrumental && \
+    pip3.5 install --upgrade pip && \
     rm -rfv Python-* \
     rm -fv `find /usr/local/lib -name "*.pyc"` && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
