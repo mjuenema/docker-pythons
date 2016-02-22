@@ -1,0 +1,57 @@
+; Test mjuenema/pythons Docker image
+
+>docker run -it --rm mjuenema/pythons
+
+; Python 2.6
+>which pip2.6
+<</usr/local/bin/pip2.6
+>echo 'import nose' | /usr/local/bin/python2.6 ; echo $?
+<<0
+>echo 'import coverage' | /usr/local/bin/python2.6 ; echo $?
+<<0
+>echo 'import minimock' | /usr/local/bin/python2.6 ; echo $?
+<<0
+
+; Python 2.7
+>which pip2.7
+<</usr/local/bin/pip2.7
+>echo 'import nose' | /usr/local/bin/python2.7 ; echo $?
+<<0
+>echo 'import coverage' | /usr/local/bin/python2.7 ; echo $?
+<<0
+>echo 'import minimock' | /usr/local/bin/python2.7 ; echo $?
+<<0
+
+; Python 3.3
+>which pip3.3
+<</usr/local/bin/pip3.3
+>echo 'import nose' | /usr/local/bin/python3.3 ; echo $?
+<<0
+>echo 'import coverage' | /usr/local/bin/python3.3 ; echo $?
+<<0
+>echo 'import minimock' | /usr/local/bin/python3.3 ; echo $?
+<<0
+
+; Python 3.4
+>which pip3.4
+<</usr/local/bin/pip3.4
+>echo 'import nose' | /usr/local/bin/python3.4 ; echo $?
+<<0
+>echo 'import coverage' | /usr/local/bin/python3.4 ; echo $?
+<<0
+>echo 'import minimock' | /usr/local/bin/python3.4 ; echo $?
+<<0
+
+; Python 3.5
+>which pip3.5
+<</usr/local/bin/pip3.5
+>echo 'import nose' | /usr/local/bin/python3.5 ; echo $?
+<<0
+>echo 'import coverage' | /usr/local/bin/python3.5 ; echo $?
+<<0
+>echo 'import minimock' | /usr/local/bin/python3.5 ; echo $?
+<<0
+
+; tox
+>which tox
+<</usr/local/bin/tox

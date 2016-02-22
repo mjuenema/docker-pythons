@@ -45,6 +45,11 @@ RUN yum -y install sqlite-devel \
                    rpm-build
 
 
+# Pypy and Jython
+#
+RUN yum -y install pypy jython
+
+
 # Download get-pip.py
 #
 RUN wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
@@ -132,6 +137,7 @@ RUN wget https://www.python.org/ftp/python/3.4.4/Python-3.4.4.tgz && \
     make altinstall && \
     cd - && \
     /usr/local/bin/python3.4 get-pip.py && \
+    cp /usr/local/bin/pip3 /usr/local/bin/pip3.4 && \
     pip3.4 install tox setuptools nose coverage minimock instrumental && \
     pip3.4 install --upgrade pip && \
     rm -rfv Python-* \
@@ -157,17 +163,16 @@ RUN wget https://www.python.org/ftp/python/3.5.1/Python-3.5.1.tgz && \
     rm -fv `find /usr/local/lib -name "*.pyo"`
 
 
-# Pypy and Jython
-#
-RUN yum -y install pypy jython
-
-
 # Undo yum proxy
 #
 RUN [ "$http_proxy" == "" ] || sed --in-place 's/^proxy=http.*$//g' /etc/yum.conf
 
-
+RUN useradd developer
 USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 CMD /bin/bash
+
+# Fix pip3.4
+#
+COPY pip3.4 /usr/local/bin/pip3.4

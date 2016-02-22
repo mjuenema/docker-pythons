@@ -1,0 +1,15 @@
+#!/usr/local/bin/python3.4
+
+# This file is not automatically installed 
+# when ``python3.4 get-pip.py`` is run.
+# MJ, 23-Feb-2016
+
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from pip import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
