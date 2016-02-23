@@ -1,5 +1,5 @@
 
-BRANCH := $(shell git branch | awk '$$1 ~ /^\*/ { print $$2 }')
+BRANCH := $(subst /,_,$(shell git branch | awk '$$1 ~ /^\*/ { print $$2 }'))
 DOCKERTAG := $(subst master,latest,$(BRANCH))
 
 all: help
