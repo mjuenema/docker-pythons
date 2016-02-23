@@ -1,4 +1,7 @@
 
+BRANCH := $(subst /,_,$(shell git branch | awk '$$1 ~ /^\*/ { print $$2 }'))
+DOCKERTAG := $(subst master,latest,$(BRANCH))
+
 all: help
 
 help:
@@ -7,13 +10,17 @@ help:
 	@echo "make test"
 
 image: Dockerfile
-	docker build -t mjuenema/pythons --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) .
+	docker build -t mjuenema/pythons:$(DOCKERTAG) --build-arg http_proxy=$(http_proxy) --build-arg https_proxy=$(https_proxy) .
+	@echo "Build mjuenema/pythons:$(DOCKERTAG)"
 
 run: image
 	docker run -it --rm mjuenema/pythons
 
-test: image
-	./expect-lite test.elt
+test: image expect
+	EL_DOCKERTAG=$(DOCKERTAG) ./expect-lite test.elt
+
+expect:
+	which expect
 
 clean_dangling:
 	# I always forget the syntax
