@@ -1,6 +1,6 @@
 ; Test mjuenema/pythons Docker image
 
->docker run -it --rm mjuenema/pythons
+>docker run -it --rm mjuenema/pythons:$EL_DOCKERTAG
 
 ; Python 2.6
 >which pip2.6
