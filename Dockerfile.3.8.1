@@ -1,0 +1,25 @@
+#
+# Python versions on CentOS 6
+#
+# Markus Juenemann, 26-Nov-2015
+
+FROM alpine:3
+MAINTAINER Markus Juenemann <markus@juenemann.net>
+
+RUN apk update && \
+    apk add expat \
+            gdbm \
+            libz2 \
+            libcrypto1.1 \
+            libffi \
+            libssl1.1 \
+            musl \
+            ncurses-libs \
+            readline \
+            sqlite-libs \
+            xz-libs \
+            zlib \
+            gcc \
+            make &&
+    rm -rf /var/cache/apk/*
+
